@@ -1,0 +1,83 @@
+<div class="m-4 grid grid-cols-1 gap-2">
+    <!-- <div class="col-start-1 col-end-1">
+        <button mat-raised-button class="rounded-md bg-supe-green ring-8" routerLink="../new"
+            routerLinkActive="router-link-active">
+            <span class="flex items-center">
+                <mat-icon>control_point</mat-icon>Nuevo curso
+            </span>
+        </button>
+    </div> -->
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <div class="col-start-1 col-end-1">
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <mat-form-field appearance="standard">
+                <mat-label>Filtrar</mat-label>
+                <input matInput #filter>
+            </mat-form-field>
+            <table mat-table [dataSource]="dataSource" class="table-auto w-full ">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Curso </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="online">
+                    <th mat-header-cell *matHeaderCellDef> Tipo curso </th>
+                    <td mat-cell *matCellDef="let element"> {{element.online == 1 ? 'Online' : 'presencial'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="beginning">
+                    <th mat-header-cell *matHeaderCellDef> Comienzo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.beginning}} </td>
+                </ng-container>
+                <ng-container matColumnDef="btn">
+                    <th mat-header-cell *matHeaderCellDef> Cuestionario </th>
+                    <td mat-cell *matCellDef="let element">
+                        <a routerLink="../questions/{{element.course_uuid}}" role="button">
+                            <button mat-mini-fab matBadge="!"
+                                 matBadgePosition="before" matBadgeColor="accent"
+                                ><mat-icon>help</mat-icon>
+                            </button>
+                        </a>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="btn2">
+                    <th mat-header-cell *matHeaderCellDef> Recursos </th>
+                    <td mat-cell *matCellDef="let element">
+                        <a routerLink="../resources/{{element.course_uuid}}" role="button">
+                            <button mat-mini-fab color="primary"><mat-icon>info</mat-icon></button>
+                        </a>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="btn3">
+                    <th mat-header-cell *matHeaderCellDef> Editar </th>
+                    <td mat-cell *matCellDef="let element">
+                        <a routerLink="../edit/{{element.course_uuid}}" role="button">
+                            <button mat-mini-fab color="primary"><mat-icon>edit</mat-icon></button>
+                        </a>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="btn4">
+                    <th mat-header-cell *matHeaderCellDef> Borrar </th>
+                    <td mat-cell *matCellDef="let element">
+                        <a routerLink="checkDate({{element.beginning}}) ? '../delete/{{element.course_uuid}}' : '' " role="button"> <!-- esta tomando literal la condicion -->
+                            <button mat-mini-fab color="primary">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </a>
+                    </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="btn_resources">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <a routerLink="../resources/{{element.id}}" role="button"> *ngIf="" -->
+                <!-- <button mat-raised-button type="button" class="color-soft" matBadge="!" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden]="element.has_questions > 0"> Recursos </button>
+                        </a>
+                    </td>
+                </ng-container> -->
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-300"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-slate-700"></tr>
+            </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" aria-label="Select page of users"
+            (page)="cambioPagina($event)"></mat-paginator>
+    </div>
+</div>

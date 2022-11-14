@@ -1,0 +1,49 @@
+<mat-card class="m-4">
+    <form class="m-4" [formGroup]="form">
+        <h2>Editar usuario</h2>
+        <div class="grid grid-cols-8 gap-2">
+            <div class="col-start-1 col-end-3">
+                <mat-label>Rol</mat-label>
+                <mat-form-field class="w-full" appearance="standard">
+                    <input matInput formControlName="name" id="name" type="text">
+                </mat-form-field>
+            </div>
+            <div class="col-start-7 col-end-8">
+                <mat-label>Habilitado</mat-label><br>
+                <mat-slide-toggle color="warn" formControlName="enabled"></mat-slide-toggle>
+            </div>
+        </div>
+        <div class="grid grid-cols-8">
+            <div class="col-start-1">
+                <div class="form-group">
+                    <button mat-raised-button class="bg-supe-green" (click)="submit()" type="submit">Editar rol</button>
+                </div>
+            </div>
+            <div class="col-start-8">
+                <div class="form-group">
+                    <button mat-raised-button color="warn" routerLink="../../list">Volver</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="!form.get('name')?.valid && submitPressed">
+        El nombre del rol es obligatorio
+    </div>
+</mat-card>
+
+<div class="grid grid-cols-1 gap-4" *ngFor="let module of modules">
+<mat-card class="m-4" >
+    <h2>{{module.module}}</h2>
+
+        <div class="w-1/4 float-left" *ngFor="let sm of module.submodules">
+         <mat-card class="m-6" >
+            <h3>{{sm.name}}</h3>
+            <div class="grid grid-cols-2 gap-4" >
+                <div *ngFor="let item of sm.permissions" >
+                    <mat-slide-toggle [checked]="item.value == 1 ? true : false" (change)="onOffCheck($event, module.module_id, item.id)">{{item.guard_name}}</mat-slide-toggle>
+                </div>
+            </div>   
+        </mat-card>   
+        </div>
+</mat-card>
+</div>

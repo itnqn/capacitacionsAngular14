@@ -1,0 +1,62 @@
+<mat-card class="m-4">
+    <form class="m-4" [formGroup]="form">
+        <h2>Editar instructor</h2>
+        <div class="grid grid-cols-8 gap-6">
+            <div class="col-start-1 col-end-3">
+                <mat-label>Nombre</mat-label>
+                <mat-form-field class="w-full" appearance="standard">
+                    <input matInput formControlName="name" id="name" type="text" readonly="readOnly">
+                </mat-form-field>
+            </div>
+            <div class="col-start-3 col-end-5">
+                <mat-label>CUIL</mat-label>
+                <mat-form-field class="w-full" appearance="standard">
+                    <input matInput formControlName="unique_code" id="unique_code" type="text">
+                </mat-form-field>
+            </div>
+            <div class="col-start-6 col-end-6">
+                <mat-label>Habilitado</mat-label><br>
+                <mat-slide-toggle color="warn" formControlName="enabled"></mat-slide-toggle>
+            </div>
+            <div class="col-start-1 col-end-3">
+                <mat-label>email</mat-label>
+                <mat-form-field class="w-full" appearance="standard">
+                    <input matInput formControlName="email" id="email" type="email">
+                </mat-form-field>
+            </div>
+            <div class="col-start-3 col-end-5">
+                <mat-label>Teléfono</mat-label>
+                <mat-form-field class="w-full" appearance="standard">
+                    <input matInput formControlName="phone" id="phone" type="text">
+                </mat-form-field>
+            </div>
+            <div class="col-start-5 col-end-7">
+                <mat-label>Dirección</mat-label>
+                <mat-form-field class="w-full" appearance="standard">
+                    <input matInput formControlName="address" id="address" type="text">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="grid grid-cols-8">
+            <div class="col-start-1">
+                <div class="form-group">
+                    <button mat-raised-button class="bg-supe-green" (click)="submit()" type="submit">Guardar nuevo instructor</button>
+                </div>
+            </div>
+            <div class="col-start-8">
+                <div class="form-group">
+                    <button mat-raised-button color="warn" routerLink="../../list">Volver</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="!form.get('name')?.valid && submitPressed">
+        El nombre del instructor es obligatorio
+    </div>
+    <div *ngIf="!form.get('unique_code')?.valid && submitPressed">
+        El CUIL del instructor es obligatoria
+    </div>
+    <div *ngIf="!form.get('email')?.valid && submitPressed">
+        El email del instructor es obligatoria
+    </div>
+</mat-card>

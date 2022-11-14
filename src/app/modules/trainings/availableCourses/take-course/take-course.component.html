@@ -1,0 +1,14 @@
+<p>take-course works!</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <mat-card>
+                <plyr style="display: block; width: 640px; border: solid green 5px; margin:auto;" [plyrCrossOrigin]="false" plyrTitle="Video 1" [plyrPlaysInline]="false" [plyrSources]="videoSources" (plyrInit)="player = $event" (plyrPlay)="played($event)"></plyr>
+
+                <button mat-raised-button color="primary" (click)="play()">Play</button>
+                <button (click)="pause()">Pausa</button>
+            </mat-card>
+        </div>
+    </div>
+</div>

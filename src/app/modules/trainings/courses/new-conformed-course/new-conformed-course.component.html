@@ -1,0 +1,146 @@
+<form [formGroup]="form1" class="m-4">
+    <mat-stepper #stepper [linear]="isLinear">
+        <!-- [linear]="isLinear" -->
+        <mat-step [stepControl]="form1">
+            <ng-template matStepLabel>Curso</ng-template>
+            <div class="grid grid-cols-8 gap-6">
+                <div class="col-start-1 col-end-3 w-full">
+                    <mat-form-field appearance="standard" class="w-full">
+                        <mat-label>Instructor</mat-label>
+                        <mat-select required formControlName="instructor">
+                            <mat-option *ngFor="let instructor of instructors" value="{{instructor.id}}">
+                                {{instructor.name}}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+                    <mat-hint>{{animalControl.value?.sound}}</mat-hint> -->
+                    </mat-form-field>
+                </div>
+                <div class="col-start-3 col-end-5 w-full">
+                    <mat-form-field appearance="standard" class="w-full">
+                        <mat-label>Curso</mat-label>
+                        <mat-select required formControlName="course">
+                            <mat-option *ngFor="let course of courses" value="{{course.id}}">
+                                {{course.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-start-5 col-end-7 w-full">
+                    <mat-form-field appearance="standard" class="w-full">
+                        <mat-label>Categorías</mat-label>
+                        <mat-select multiple formControlName="services">
+                            <mat-option *ngFor="let service of services" value="{{service.id}}">{{service.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="grid grid-cols-8 grid-rows-3 gap-6 mt-6">
+                <div class="col-start-1 col-end-3 row-span-2">
+                    <mat-card class="demo-inline-calendar-card">
+                        <mat-label>Fecha de inicio</mat-label>
+                        <mat-calendar [selected]="form1.get('ini_date')?.value"
+                            (selectedChange)="updateFormDate($event, 'ini')"></mat-calendar>
+                    </mat-card>
+                </div>
+                <div class="col-start-3 col-end-5 row-span-2">
+                    <mat-card class="demo-inline-calendar-card">
+                        <mat-label>Fecha de finalización</mat-label>
+                        <mat-calendar [minDate]="form1.get('ini_date')?.value" [selected]="form1.get('end_date')?.value"
+                            (selectedChange)="updateFormDate($event, 'end')"></mat-calendar>
+                    </mat-card>
+                </div>
+                <div class="col-start-5 col-end-7 grid grid-cols-3 row-span-2">
+                    <div class="col-start-1 col-end-4 w-full">
+                        <mat-form-field class="w-full">
+                            <mat-label>Hora de inicio</mat-label>
+                            <input matInput type="time" formControlName="ini_time">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-start-1 col-end-4 w-full">
+                        <mat-form-field class="w-full">
+                            <mat-label>Hora de finalización</mat-label>
+                            <input matInput type="time" formControlName="end_time">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-start-1 col-end-4 w-full">
+                        <mat-form-field appearance="standard" class="w-full">
+                            <mat-label>Tipo de capacitación</mat-label>
+                            <mat-select required class="w-full" formControlName="online">
+                                <mat-option value="0">Presencial</mat-option>
+                                <mat-option value="1">Online</mat-option>
+                                <!-- <mat-option *ngFor="let course of courses" value="{{course.id}}" formControlName="course">
+                                    {{course.description}}
+                                </mat-option> -->
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button mat-button matStepperNext (click)="stepper1Triggered()">Siguiente</button>
+            </div>
+        </mat-step>
+        <mat-step [stepControl]="form1" label="Estudiantes">
+
+            <!-- <mat-selection-list #shoes formControlName="students" dense>
+                <mat-list-option *ngFor="let student of students_cat" value="{{student.id}}" [selected]="true">
+                    {{student.Apellido}}
+                </mat-list-option>
+            </mat-selection-list> -->
+            <div class="mat-elevation-z8 ">
+                <table mat-table [dataSource]="dataSource" class="w-full">
+
+                    <!-- Checkbox Column -->
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                [aria-label]="checkboxLabel()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+                                [aria-label]="checkboxLabel(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Apellido">
+                        <th mat-header-cell *matHeaderCellDef> Estudiante </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Apellido}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Categoria">
+                        <th mat-header-cell *matHeaderCellDef> Categoria </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+                    </tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+                </mat-paginator>
+                <div>
+                    <button mat-button matStepperPrevious>Volver</button>
+                    <button mat-button matStepperNext (click)="stepper2Triggered()" [disabled]="this.selection.selected.length == 0">Siguiente</button>
+                </div>
+            </div>
+
+
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Resumen</ng-template>
+            <p>Al hacer click en ENVIAR, se conformará el curso para los estudiantes seleccionados</p>
+            <div>
+                <button mat-button matStepperPrevious>Volver</button>
+                <button mat-button (click)="submit()">ENVIAR</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</form>

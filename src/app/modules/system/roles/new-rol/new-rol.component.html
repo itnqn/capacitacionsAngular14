@@ -1,0 +1,32 @@
+<mat-card class="m-4">
+    <form class="m-4" [formGroup]="form">
+        <h2>Nuevo usuario</h2>
+        <div class="grid grid-cols-8 gap-6">
+            <div class="col-start-1 col-end-3">
+                <mat-label>Rol</mat-label>
+                <mat-form-field class="w-full" appearance="standard">
+                    <input matInput formControlName="name" id="name" type="text">
+                </mat-form-field>
+            </div>
+            <div class="col-start-5 col-end-5">
+                <mat-label>Habilitado</mat-label><br>
+                <mat-slide-toggle color="warn" formControlName="enabled"></mat-slide-toggle>
+            </div>
+        </div>
+        <div class="grid grid-cols-8">
+            <div class="col-start-1">
+                <div class="form-group">
+                    <button mat-raised-button class="bg-supe-green" (click)="submit()" type="submit">Generar rol</button>
+                </div>
+            </div>
+            <div class="col-start-8">
+                <div class="form-group">
+                    <button mat-raised-button color="warn" routerLink="../list" >Volver</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="!form.get('name')?.valid && submitPressed">
+        El nombre del rol es obligatorio
+    </div>
+</mat-card>

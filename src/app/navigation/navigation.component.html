@@ -1,0 +1,59 @@
+<nav class="">
+  <div class="h-16 bg-dfan-gris text-white text-2xl text-center items-center grid grid-cols-9 grid-rows-1 gap-2 font-sans">
+    <div class="col-span-3 col-start-1 col-end-2 flex flex-auto text-center items-center">
+      <button mat-icon-button (click)="drawer.toggle()">
+        <!--color="warn"-->
+        <mat-icon class="text-3xl">menu</mat-icon>
+      </button>
+      <span class="font-bold ml-auto">SUPE</span><small class="text-xs">Capacitaciones</small>
+    </div>
+    <!-- <div class="col-start-2 col-end-5 flex flex-initial"></div> -->
+    <div class="col-span-3 col-start-6 col-end-9 flex">
+      <div class="col-start-6 col-end-8"><span>{{employee_id}}</span></div>
+  
+      <div class="col-start-8 col-end-9"><img class="w-10 h-10 rounded-full" src="assets/user_icon.jpg"></div>
+    </div>
+  </div>
+</nav>
+
+
+<mat-sidenav-container class="sidenav-container ">
+  <mat-sidenav #drawer class="w-64 bg-dfan-gris"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    <div class="text-center text-white text-2xl">
+      <!-- <span class="font-bold">S.U.P.E<br> -->
+      <span class="text-xs font-normal">Sistema Unificado Personal/Equipos</span>
+      <!-- </span> -->
+    </div>
+    <mat-nav-list class="mt-8">
+      <mat-accordion>
+        <div *ngFor="let module of modules">
+          <ng-container *ngIf="module.submodules.length > 0 then expansion;else item"></ng-container>
+          <ng-template #expansion>
+            <mat-expansion-panel class="bg-dfan-gris">
+              <mat-expansion-panel-header>
+                <mat-icon class="text-white">{{module.icon}}</mat-icon><span class="text-white">{{module.name}}</span>
+              </mat-expansion-panel-header>
+              <mat-panel-description class="text-white">{{module.description}}</mat-panel-description>
+              <mat-list>
+                <div *ngFor="let submodule of module.submodules">
+                  <mat-list-item routerLink="{{module.link}}/{{submodule.link}}">
+                    <span class="text-white">{{submodule.name}}</span>
+                  </mat-list-item>
+                </div>
+              </mat-list>
+            </mat-expansion-panel>
+          </ng-template>
+          <ng-template #item>
+            <mat-list-item routerLink=module.link routerLinkActive="router-link-active"> {{module.name}}
+            </mat-list-item>
+          </ng-template>
+        </div>
+      </mat-accordion>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

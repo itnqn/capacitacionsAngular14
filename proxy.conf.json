@@ -1,0 +1,14 @@
+{
+    "/pagead/id" : {
+        "target" : "https://googleads.g.doubleclick.net/",
+        "secure" : false,
+        "logLevel" : "debug"
+    },
+
+    "*/iframe_api" : {
+        "target" : "https://www.youtube.com/",
+        "secure" : false,
+        "logLevel" : "debug"
+    },
+    "changeOrigin": true
+}

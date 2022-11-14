@@ -1,0 +1,34 @@
+.courses{
+    padding: 10px;
+    background-color: #fafafa;
+}
+
+.row{
+    width: 95%;
+    padding: 15px;
+}
+
+.cardCourses{
+    background-color: aliceblue;
+   
+}
+
+.video{
+    width: 95%;
+    min-height: 150px;
+    padding: 2px;
+    background-color: black;
+}
+
+.spinner{
+    
+    position:relative;
+    margin:auto;
+    top: 50%;
+}
+
+p{
+    font-size: 0.8em;
+}
+
+

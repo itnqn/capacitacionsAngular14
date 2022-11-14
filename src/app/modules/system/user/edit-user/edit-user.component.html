@@ -1,0 +1,74 @@
+<mat-card class="m-4">
+    <form class="m-4" [formGroup]="form">
+        <h2>Nuevo usuario</h2>
+        <div class="grid grid-rows-1">
+            <div class="grid grid-cols-8 gap-6">
+                <div class="col-start-1 col-end-8">
+                    <mat-label>E-mail</mat-label>
+                    <mat-form-field class="w-full" appearance="standard">
+                        <input matInput formControlName="email" id="email" type="text">
+                    </mat-form-field>
+                </div>              
+                
+                <div class="col-start-1 col-end-3">
+                    <mat-label>Empleado</mat-label>
+                    <ng-select [items]="employees" bindLabel="description" bindValue="id" formControlName="employee">
+                    </ng-select>
+                </div>
+                <div class="col-start-3 col-end-4">
+                    <mat-label>Rol</mat-label>
+                    <ng-select [items]="roles" bindLabel="name" bindValue="id" formControlName="roles_id">
+                    </ng-select>
+                </div>
+                <div class="col-start-5 col-end-5">
+                    <mat-label>Habilitado</mat-label><br>
+                    <mat-slide-toggle [(ngModel)]="enabled" color="warn" formControlName="enabled" [disabled]="false"></mat-slide-toggle>
+                </div>
+
+                <div class="col-start-1 col-end-4">
+                    <mat-card class="example-card" style="width: 50%;">
+                        <mat-card-header>
+                          <div mat-card-avatar class="example-header-image"></div>
+                          <mat-card-title></mat-card-title>
+                          <mat-card-subtitle></mat-card-subtitle>
+                        </mat-card-header>
+                        <img mat-card-image src="http://localhost:8080/capacitaciones/api/public/upload/{{imageDefault}}">
+                        <mat-card-content>
+
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button type="button" mat-raised-button (click)="fileInput.click()">Elegir archivo</button>
+                            <input hidden  #fileInput type="file" id="file"  accept=".png, .jpg" (change)="uploadImage()">&nbsp;
+                            <input type="hidden" [(ngModel)]="imageDefault" formControlName="photo" value="">
+                        </mat-card-actions>
+                      </mat-card>
+                      
+                </div> 
+                
+                <div class="col-start-1 col-end-2">
+                    <div class="form-group">
+                        <button mat-raised-button class="bg-supe-green" (click)="submit()" type="submit">Generar usuario</button>
+                    </div>
+                </div>
+                <div class="col-start-2 col-end-6">
+                    <div class="form-group">
+                        <button mat-raised-button color="warn" routerLink="../list" >Volver</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div >
+            <div class="col-start-1 col-end-6">
+                
+            </div>
+        </div>
+        
+    </form>
+    <div *ngIf="!form.get('email')?.valid && submitPressed">
+        El email es obligatorio
+    </div>
+    <div *ngIf="!form.get('employee')?.valid && submitPressed">
+        Seleccione un empleado
+    </div>
+</mat-card>

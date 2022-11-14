@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/material.theme.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Inter";
+  src: local("Inter"), url(./assets/fonts/Inter.ttf) format("truetype");
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Inter", "Inter", sans-serif !important;
+}
+
+.mat-body,
+.mat-body-1,
+.mat-typography,
+.font-sans,
+.mat-button,
+.mat-raised-button,
+.mat-icon-button,
+.mat-stroked-button,
+.mat-flat-button,
+.mat-fab,
+.mat-mini-fab,
+.mat-card,
+.mat-input-element,.mat-h2, .mat-title, .mat-typography h2,
+.mat-table {
+  font-family: "Inter", "Inter", sans-serif !important;
+}

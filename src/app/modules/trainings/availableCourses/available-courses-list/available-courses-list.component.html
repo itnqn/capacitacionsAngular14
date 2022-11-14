@@ -1,0 +1,32 @@
+<div class="row">  
+        <div class="col-md-3 courses" *ngFor="let c of courses"> 
+            <mat-card style="width: 100%;">
+                <div class="col-md-12">
+                    <h2>{{c.name}}</h2>                    
+                </div>
+
+                <div class="col-md-12 ">
+                    
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        Descripci&oacute;n: {{c.description}}
+                    </div>
+                    <div class="col-md-12">
+                        <p>Fecha inicio: {{c.beginning}}</p>
+                    </div>
+
+                    <div class="col-md-12">
+                        <p>Fecha final: {{c.finish}}</p> 
+                    </div>
+                    
+                </div>
+                <div class="col-md-12">
+                    <button mat-raised-button color="primary"  routerLink="../take-course/{{c.course_uuid}}">Comenzar curso</button> | <button mat-raised-button color="primary" disabled="cursado" >Rendir</button>
+                </div>              
+            </mat-card>
+        </div>
+</div>
+
+
+
