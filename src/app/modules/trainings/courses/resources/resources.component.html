@@ -1,50 +1,81 @@
 <div class="container">
     <div class="row ">
-        <form  class="class100"  [formGroup]="form">
-            <div class="col mt-4" style="background-color: yellow;">
+        
+            <div class="col mt-4" >
                 <mat-card>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4">          
+                           <form   [formGroup]="form">                
                             <mat-card>
-                                <div class="col-md-12">
-                                    <mat-label>Tipo de recurso</mat-label>
-                                    <ng-select [items]="select_1" bindLabel="name" bindValue="id" formControlName="type" (change)="selectors($event)" [(ngModel)]="selectedOption">
-                                   </ng-select>
-                                </div>       
-                                
-                                <div class="col-md-12" style="background-color: red;"  *ngIf="template; then video else files">
-
+                                <div class="col-md-12">   
+                                    <h4>Video</h4>                                
+                                        <mat-form-field appearance="fill" style="width: 100%">
+                                            <mat-label>Url del video</mat-label>
+                                            <input type="hidden" formControlName="type">
+                                            <input matInput formControlName="url_video">
+                                        </mat-form-field>
                                 </div>
+                                <div class="col-md-4">
+                                    <button mat-mini-fab color="primary" (click)="saveResourcesVideo()"><mat-icon>plus_one</mat-icon></button>
+                                </div>
+                            </mat-card>              
+                            </form>              
+                        </div>
 
+                        <div class="col-md-4">   
+                            <form   [formGroup]="form_2">                         
+                            <mat-card>
+                                <h4>Archivos</h4>
+                                <div class="col-md-12 custom-input-file"  style="min-height: 70px;">
+                                    <div style="width: 100%; height: 40px; background-color: darkgray; border-radius: 5px;">  <p style="text-align: center; vertical-align: middle; color:white;">
+                                        <mat-icon> attach_file</mat-icon>Elegir archivo .doc, .pdf</p> 
+                                        <input type="hidden" formControlName="type" value="file">
+                                        <input type="file" class=" input-file" #file_attachment formControlName="files"  accept=".doc, .xlsm, .xlsx, .pdf">
+                                    </div>
+                                    
+                                </div>
                                 <div class="col-md-12 mt-2">
-                                    <button mat-raised-button color="primary">Primary</button>
-                                </div> 
-                              
-                            </mat-card>
+                                   <button mat-mini-fab color="primary" (click)="saveResourcesFiles()"><mat-icon>plus_one</mat-icon></button> 
+                                </div>
+                            </mat-card>   
+                            </form>                       
+                        </div>
 
+                        <div class="col-md-12 mt-2">
+                            <mat-card>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-4 mt-2 resources" *ngFor="let ar of allResources">
+                                            <div class="col-md-12">
+                                                <a (click)="deleteResources(ar.id)"><mat-icon>delete</mat-icon></a>                                                
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p>Tipo de recurso: {{ar.type}}</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p>Link : {{ar.path}}</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p>Fecha creación: {{ar.created_at}}</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p>Fecha modificación: {{ar.updated_at}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card>
                         </div>
 
                         
                     </div>
                 </mat-card>
             </div>
-        </form>
+     
     </div>
 </div>
 
-<ng-template #video>
-    <mat-card>
-            <mat-form-field appearance="fill" >
-                <mat-label>Url del video</mat-label>
-                <input matInput >
-            </mat-form-field>    
-    </mat-card>
-</ng-template>
 
-<ng-template #files>
-    <mat-card>       
-        <div class="col-md-4">
-            <input  type="file" >             
-        </div>
-    </mat-card>
-</ng-template>
+
+
+

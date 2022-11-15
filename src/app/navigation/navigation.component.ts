@@ -19,7 +19,7 @@ export class NavigationComponent {
   modules = [
     {
       name: 'Cursos',
-      icon: 'settings',
+      icon: 'school',
       description: '',
       id: 1,
       link: 'trainings',

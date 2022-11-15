@@ -53,4 +53,34 @@ export class TrainingsService {
     return this.httpClient.post(this.url + 'available-courses', data);
   }
 
+
+  /********************************************
+   * resources
+   */
+
+  getAllResources(uuid : string):Observable<any>{
+    return this.httpClient.get(this.url + 'courses-video/' + uuid);
+  }
+
+  coursesVideo(data : any):Observable<any>{
+    return this.httpClient.post(this.url + 'courses-video', data);
+  }
+
+  resourcesDelete(id : any) : Observable<any>{
+    return this.httpClient.delete(this.url + 'courses-video/' + id);
+  }
+
+  coursesFiles(data : any):Observable<any>{
+    return this.httpClient.post(this.url + '', data);
+  }
+
+  /********************************************
+   * take courses
+   */
+
+  takeCourse(uuid : any):Observable<any>{
+    return this.httpClient.get(this.url + 'courses-video/take/' + uuid)
+  }
+
+
 }

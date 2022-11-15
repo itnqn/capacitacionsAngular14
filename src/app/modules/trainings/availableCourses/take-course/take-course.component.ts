@@ -2,6 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PlyrComponent } from 'ngx-plyr';
 
+/*****************************************
+ * services
+ */
+import { TrainingsService } from 'src/app/services/trainings/trainings.service';
+
 @Component({
   selector: 'app-take-course',
   templateUrl: './take-course.component.html',
@@ -14,19 +19,25 @@ export class TakeCourseComponent implements OnInit {
   @ViewChild(PlyrComponent) plyr!: PlyrComponent;
   player!: Plyr;
 
-  videoSources: Plyr.Source[] = [
-    {
-      src: 'bTqVqk7FSmY',
-      provider: 'youtube',
-    },
-  ];
+  // videoSources: Plyr.Source[] = [
+  //   {
+  //     src: 'bTqVqk7FSmY',
+  //     provider: 'youtube',
+  //   },
+  // ];
 
-  constructor(private activeRoute : ActivatedRoute) {
-    this.uuid = this.activeRoute.snapshot.paramMap.get('id');
-    console.log(this.uuid)
+  videoSources: Plyr.Source[] = [];
+
+  constructor(
+    private activeRoute : ActivatedRoute,
+    private _trainings : TrainingsService
+    ) {
+    this.uuid = this.activeRoute.snapshot.paramMap.get('uuid');
+    this.takeCourse();
   }
 
   ngOnInit(): void {
+    
   }
 
   played(event: Plyr.PlyrEvent) {
@@ -39,6 +50,17 @@ export class TakeCourseComponent implements OnInit {
 
   pause(){
     console.log(this.player.pause());
+  }
+
+  takeCourse(){
+    this._trainings.takeCourse(this.uuid).subscribe(res=>{
+      for(let i = 0; i < res.length; i++){
+        this.videoSources.push({src : res[i].path, provider : 'youtube'})
+      }
+
+      console.log(this.videoSources)
+      
+    })
   }
 
 }
