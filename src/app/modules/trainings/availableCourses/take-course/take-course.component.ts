@@ -19,14 +19,14 @@ export class TakeCourseComponent implements OnInit {
   @ViewChild(PlyrComponent) plyr!: PlyrComponent;
   player!: Plyr;
 
-  // videoSources: Plyr.Source[] = [
-  //   {
-  //     src: 'bTqVqk7FSmY',
-  //     provider: 'youtube',
-  //   },
-  // ];
+  videoSources: Plyr.Source[] = [
+    {
+      src: 'bTqVqk7FSmY',
+      provider: 'youtube',
+    },
+  ];
 
-  videoSources: Plyr.Source[] = [];
+  // videoSources: Plyr.Source[] = [];
 
   constructor(
     private activeRoute : ActivatedRoute,
@@ -50,6 +50,10 @@ export class TakeCourseComponent implements OnInit {
 
   pause(){
     console.log(this.player.pause());
+    this.player.on('ready', (event) => {
+      const instance = event.detail.plyr;
+      console.log(event.detail.plyr);
+    });
   }
 
   takeCourse(){
